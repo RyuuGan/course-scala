@@ -1,5 +1,7 @@
 package sandbox.greeter
 
+import sandbox.greeter.ImmutableGreeter
+
 class Greeter(val name: String) {
 
   var prefix = "Hello, "
@@ -10,6 +12,8 @@ class Greeter(val name: String) {
   def greet() {
     println(greeting)
   }
+
+  override def toString = greeting
 
 }
 
@@ -22,6 +26,8 @@ class ParameterizedGreeter(val name: String,
   def greet() {
     println(greeting)
   }
+
+  override def toString = greeting
 
 }
 
@@ -36,5 +42,30 @@ class MutableGreeter {
   def greet() {
     println(greeting)
   }
+
+  override def toString = greeting
+
+}
+
+class ImmutableGreeter(val name: String = "World",
+                       val prefix: String = "Hello, ",
+                       val suffix: String = "!") {
+
+  def withName(newName: String) =
+    new ImmutableGreeter(newName, prefix, suffix)
+
+  def withPrefix(newPrefix: String) =
+    new ImmutableGreeter(name, newPrefix, suffix)
+
+  def withSuffix(newSuffix: String) =
+    new ImmutableGreeter(name, prefix, newSuffix)
+
+  def greeting = prefix + name + suffix
+
+  def greet() {
+    println(greeting)
+  }
+
+  override def toString = greeting
 
 }
