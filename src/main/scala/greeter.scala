@@ -1,4 +1,4 @@
-package sandbox
+package sandbox.greeter
 
 class Greeter(val name: String) {
 
