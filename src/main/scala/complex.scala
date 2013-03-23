@@ -32,27 +32,26 @@ class Complex(val re: Double,
 
   // Unary operations
 
-  def unary_- = new Complex(-re, -im)
-
   def unary_+ = new Complex(re, im)
+  def unary_- = new Complex(-re, -im)
 
   // Comparison
 
   override def equals(obj: Any) = obj match {
     case that: Complex =>
       this.re == that.re && this.im == that.im
-    case number: Numeric =>
+    case number: Double =>
       this.re == number && this.im == 0
     case _ =>
+      false
   }
 
+  override def hashCode = re.hashCode * im.hashCode
+
   def <(that: Complex) = this.modulus < that.modulus
-
   def <=(that: Complex) = this < that || this == that
-
+  def >(that: Complex) = !(this <= that)
   def >=(that: Complex) = !(this < that)
-
-  def >(that: Complex) = this >= that && this != that
 
   // Printing
 
