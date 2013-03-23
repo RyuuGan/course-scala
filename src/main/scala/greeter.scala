@@ -1,6 +1,4 @@
-package sandbox.greeter
-
-import sandbox.greeter.ImmutableGreeter
+package sandbox
 
 class Greeter(val name: String) {
 
