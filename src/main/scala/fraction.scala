@@ -14,16 +14,8 @@ class Fraction(n: Int, d: Int) {
 
   // Greatest common divisor (Euclidean algorithm)
 
-  def gcd(a: Int, b: Int): Int = {
-    var _a = math.abs(a)
-    var _b = math.abs(b)
-    while (_a != _b) {
-      if (_a > _b)
-        _a -= _b
-      else _b -= _a
-    }
-    _a
-  }
+  def gcd(a: Int, b: Int): Int =
+    if (b == 0) a else gcd(b, a % b)
 
   def gcd: Int = gcd(numerator, denominator)
 
