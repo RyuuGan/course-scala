@@ -15,9 +15,9 @@ class Greeter(val name: String) {
 
 }
 
-class ParameterizedGreeter(val name: String,
-                           var prefix: String = "Hello, ",
-                           var suffix: String = "!") {
+class ParamGreeter(val name: String,
+                   var prefix: String = "Hello, ",
+                   var suffix: String = "!") {
 
   def greeting = prefix + name + suffix
 
