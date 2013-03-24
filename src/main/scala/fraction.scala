@@ -12,7 +12,7 @@ class Fraction(n: Int, d: Int) {
 
   val decimal: Double = numerator.toDouble / denominator
 
-  // Greatest common disisor (Euclidean algorithm)
+  // Greatest common divisor (Euclidean algorithm)
 
   def gcd(a: Int, b: Int): Int = {
     var _a = math.abs(a)
