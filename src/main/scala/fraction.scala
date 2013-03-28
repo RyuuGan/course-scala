@@ -24,7 +24,7 @@ class Fraction(n: Int, d: Int) {
   def isReduced = gcd == 1
 
   def reduced: Fraction =
-    if (isReduced) new Fraction(numerator, denominator)
+    if (isReduced) this
     else new Fraction(numerator / gcd, denominator / gcd)
 
   // Improper fractions
@@ -39,7 +39,7 @@ class Fraction(n: Int, d: Int) {
   // Arithmetic operations
 
   def abs: Fraction =
-    if (numerator >= 0) new Fraction(numerator, denominator)
+    if (numerator >= 0) this
     else new Fraction(-numerator, denominator)
 
   def +(that: Fraction) =
