@@ -11,18 +11,18 @@ class Fraction(n: Int, d: Int) {
 
   // Decimal form
 
-  val decimal: Double = numerator.toDouble / denominator
+  val decimal = numerator.toDouble / denominator
 
   // Greatest common divisor (Euclidean algorithm)
 
   def gcd(a: Int, b: Int): Int =
     if (b == 0) a
-    else if (b > a) gcd(b, a)
     else if (a < 0) gcd(-a, b)
     else if (b < 0) gcd(a, -b)
+    else if (b > a) gcd(b, a)
     else gcd(b, a % b)
 
-  def gcd: Int = gcd(numerator, denominator)
+  val gcd = gcd(numerator, denominator)
 
   // Reduction
 
@@ -46,9 +46,7 @@ class Fraction(n: Int, d: Int) {
 
   // Absolute value
 
-  def abs: Fraction =
-    if (numerator >= 0) this
-    else new Fraction(-numerator, denominator)
+  def abs = new Fraction(math.abs(numerator), denominator)
 
   // Arithmetic operations
 
@@ -72,6 +70,7 @@ class Fraction(n: Int, d: Int) {
   // Unary operations
 
   def unary_+ = new Fraction(numerator, denominator)
+
   def unary_- = new Fraction(-numerator, denominator)
 
   // Comparison
@@ -99,8 +98,6 @@ class Fraction(n: Int, d: Int) {
       result += "/" + denominator
     result
   }
-
-  def toLaTeXString = "\\frac{" + numerator + "}{" + denominator + "}"
 
   def toImproperString =
     if (!isImproper) toString
