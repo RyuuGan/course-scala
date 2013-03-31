@@ -47,7 +47,7 @@ class Rectangle(val ab: Double,
 
   def ad = bc
 
-  def perimeter = 2 * ab + 2 * ac
+  def perimeter = 2 * (ab + ac)
 
   def area = ab * ac
 
