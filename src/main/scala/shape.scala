@@ -23,7 +23,8 @@ class Triangle(val ab: Double,
                val a: Double)
     extends Shape {
 
-  def bc = (ab * ab) + (ac * ac) - 2 * ab * ac * math.cos(a)
+  def bc = math.sqrt(
+    (ab * ab) + (ac * ac) - 2 * ab * ac * math.cos(a))
 
   def b = math.atan(ac / ab)
 
