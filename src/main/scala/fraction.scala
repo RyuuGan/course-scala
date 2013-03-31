@@ -22,7 +22,7 @@ class Fraction(n: Int, d: Int) {
     else if (b > a) gcd(b, a)
     else gcd(b, a % b)
 
-  val gcd = gcd(numerator, denominator)
+  val gcd: Int = gcd(numerator, denominator)
 
   // Reduction
 
@@ -114,5 +114,10 @@ class Fraction(n: Int, d: Int) {
       }
       result
     }
+
+  // Functional methods
+
+  def map(numF: Int => Int, denF: Int => Int): Fraction =
+    new Fraction(numF(numerator), denF(denominator))
 
 }
