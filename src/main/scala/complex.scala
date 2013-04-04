@@ -1,57 +1,51 @@
 package sandbox
 
-class Complex(val re: Double,
-              val im: Double) {
+sealed trait Complex {
 
-  // Polar
+  def re: Double
 
-  val modulus = math.sqrt(re * re + im * im)
-  val argument = math.atan2(im, re)
+  def im: Double
 
-  // Arithmetic operations
+  def modulus: Double
 
-  def conjugate = new Complex(re, -im)
+  def argument: Double
+
+  // Arithmetics
 
   def +(that: Complex): Complex =
-    new Complex(this.re + that.re, this.im + that.im)
+    new RectComplex(this.re + that.re, this.im + that.im)
 
   def -(that: Complex): Complex =
-    new Complex(this.re - that.re, this.im - that.im)
+    new RectComplex(this.re - that.re, this.im - that.im)
 
   def *(that: Complex): Complex =
-    new Complex(
-      this.re * that.re + this.im * that.im,
-      this.re * that.im - this.im * that.re)
+    new PolarComplex(this.modulus * that.modulus,
+      this.argument + that.argument)
 
   def /(that: Complex): Complex = {
-    require(that.re != 0)
-    val n = this * that.conjugate
-    val d = that.re * that.re + that.im * that.im
-    new Complex(n.re / d, n.im / d)
+    require(that != 0)
+    new PolarComplex(this.modulus / that.modulus,
+      this.argument - that.argument)
   }
-
-  // Unary operations
-
-  def unary_+ = new Complex(re, im)
-  def unary_- = new Complex(-re, -im)
 
   // Comparison
 
+  def tolerance: Double = 0.000001
+
   override def equals(obj: Any) = obj match {
     case that: Complex =>
-      this.re == that.re && this.im == that.im
-    case number: Double =>
-      this.re == number && this.im == 0
+      math.abs(this.re - that.re) < tolerance &&
+          math.abs(this.im - that.im) < tolerance
     case _ =>
-      false
+      try {
+        math.abs(this.re - obj.toString.toDouble) < tolerance &&
+            this.im == 0
+      } catch {
+        case e: NumberFormatException => false
+      }
   }
 
   override def hashCode = re.hashCode * im.hashCode
-
-  def <(that: Complex) = this.modulus < that.modulus
-  def <=(that: Complex) = this < that || this == that
-  def >(that: Complex) = !(this <= that)
-  def >=(that: Complex) = !(this < that)
 
   // Printing
 
@@ -72,5 +66,22 @@ class Complex(val re: Double,
 
   override def toString = realPart + imaginaryPart
 
+}
+
+final class RectComplex(val re: Double,
+                        val im: Double)
+    extends Complex {
+
+  val modulus = math.sqrt(re * re + im * im)
+  val argument = math.atan2(im, re)
+
+}
+
+final class PolarComplex(val modulus: Double,
+                         val argument: Double)
+    extends Complex {
+
+  val re = modulus * math.cos(argument)
+  val im = modulus * math.sin(argument)
 
 }
